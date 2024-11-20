@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affine Transformations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            color: #333;
+            text-align: center;
+        }
+
+        .header {
+            background-color: #003366; 
+            color: white; 
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: -130px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 80%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 12px 25px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003366;;
+        }
+
+        .go-back-btn {
+            background-color: #003366;
+            color: white; 
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .go-back-btn:hover {
+            background-color: #003366; 
+            transform: scale(1.05);  
+        }
+
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+            margin-top: 30px;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        img {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>OpenCV Affine Transformation Project</h1>
+        <p>By Kaustubh Bhavsar CV2</p>
+        <p>202101040161 | Roll No. 213</p>
+    </div>
+
+    <h1>Upload an Image for Transformation</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if filename %}
+    <div style="margin-top: 300px; width: 100%;">
+        <div class="header">
+            <h1>OpenCV Affine Transformation Project</h1>
+            <p>By Kaustubh Bhavsar CV2</p>
+            <p>202101040161 | Roll No. 213</p>
+        </div>
+
+        <h2>Original Image</h2>
+        <img src="{{ url_for('static', filename=filename) }}" width="300">
+
+        <h2>Affine Transformed Images</h2>
+        <div class="image-gallery">
+            <div>
+                <h3>Translated Image</h3>
+                <img src="{{ url_for('static', filename=translated) }}" width="300">
+            </div>
+            <div>
+                <h3>Scaled Image</h3>
+                <img src="{{ url_for('static', filename=scaled) }}" width="300">
+            </div>
+            <div>
+                <h3>Rotated Image</h3>
+                <img src="{{ url_for('static', filename=rotated) }}" width="300">
+            </div>
+            <div>
+                <h3>Sheared Image</h3>
+                <img src="{{ url_for('static', filename=sheared) }}" width="300">
+            </div>
+            <div>
+                <h3>Reflected Image</h3>
+                <img src="{{ url_for('static', filename=reflected) }}" width="300">
+            </div>
+            <div>
+                <h3>Perspective Image</h3>
+                <img src="{{ url_for('static', filename=perspective) }}" width="300">
+            </div>
+        </div>
+    </div>
+        <a href="/" class="go-back-btn">Go Back to Home Screen</a>
+
+    {% endif %}
+</body>
+</html>
