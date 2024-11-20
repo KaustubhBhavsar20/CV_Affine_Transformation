@@ -3,8 +3,12 @@ import cv2
 import numpy as np
 from PIL import Image
 import os
+from flask import Flask, render_template, request, redirect, url_for
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 
 # Define the upload folder and allowed extensions
 UPLOAD_FOLDER = 'static/'
